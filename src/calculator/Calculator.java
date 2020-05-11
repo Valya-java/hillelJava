@@ -61,6 +61,10 @@ public class Calculator {
         return result;
 
     }
+    static float average(float num1, float num2){
+        float average = (num1+num2)/2;
+        return average;
+    }
 
 
 }
