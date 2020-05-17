@@ -5,16 +5,7 @@ import java.util.Arrays;
 
 public class Group {
     //final static int MAX_STUDENTS_IN_GROUP = 5;
-    public static void main(String[] args) {
-        Student [] students = new Student [0];
-        students = addStudent("Ivanov", students);
-        students = addStudent("Sidorov", students);
-        print(students);
-        deleteStudent("Ivanov",students);
-        print(students);
-        setMarks(findStudent("Sidorov", students), 5, 5);
-        print(students);
-    }
+
 
 
     public static Student [] addStudent(String newStudentsSurname, Student [] oldStudents) {
