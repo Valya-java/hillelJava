@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Group {
-    //final static int MAX_STUDENTS_IN_GROUP = 5;
-
-
 
     public static Student [] addStudent(String newStudentsSurname, Student [] oldStudents) {
         Student[] result = new Student[oldStudents.length + 1];
@@ -17,11 +14,6 @@ public class Group {
         return result;
     }
 
-
-
-
-
-
     public static void print(Student [] students){
         System.out.println("Surname\tMarks\t\t\t\t\tVisits");
         for (int i = 0; i <students.length ; i++) {
@@ -29,12 +21,21 @@ public class Group {
         }
     }
 
-    public static void deleteStudent(String studentToDelete, Student [] students){
-        for (int i = 0; i <students.length ; i++) {
-            if( students[i].surname.equalsIgnoreCase(studentToDelete)){
-                students[i] = null;}
+    public static Boolean deleteStudent(String studentToDelete, Student [] students){
+        Student[] result = new Student[students.length - 1];
+        Integer k = 0;
+        for (Integer i = 0; i < students.length - 1; i++) {
 
+            if (students[i].surname.equalsIgnoreCase(studentToDelete)) {
+                k = 1;
+                // Если нашли студента которого нужно удалить, устанавливаем k = 1
+                // Чтоб при копировании в новый массив пропустить этого студента
+            }
+
+            result[i] = students[i + k];
         }
+        students = result;
+        return true;
     }
 
     public static void setMarks(Student student, int mark, int lessonNum){
