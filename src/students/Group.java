@@ -42,14 +42,6 @@ public class Group {
         students = result;
     }
 
-    public void setMarks(Student student, int mark, int lessonNum) {
-        student.marks[lessonNum - 1] = mark;
-    }
-
-    public void setVisits(Student student, boolean visit, int lessonNum) {
-        student.visits[lessonNum - 1] = visit;
-    }
-
     public Student findStudent(String surname) {
         for (int i = 0; i < students.length; i++) {
             if (students[i].surname.equalsIgnoreCase(surname))
@@ -60,9 +52,9 @@ public class Group {
 
     public void contains(String surname) {
         if (findStudent(surname) == null)
-            System.out.println("Student isn't in group");
+            System.out.println("Student is not in this group.");
         else
-            System.out.println("Student find");
+            System.out.println("Student is in a group");
     }
 
     public void sortStudent() {

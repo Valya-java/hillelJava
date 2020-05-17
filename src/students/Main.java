@@ -12,15 +12,13 @@ public class Main {
         group.deleteStudent("Ivanov");
         group.print();
         System.out.println();
-        group.setMarks(group.findStudent("Sidorov"), 5, 5);
-        group.setVisits(group.findStudent("Sidorov"), true, 5);
+        Student student = (group.findStudent("Sidorov"));
+        student.setMarks(5,5);
+        student.setVisits(true, 5);
         group.print();
         System.out.println();
         group.sortStudent();
         group.print();
 
     }
-
-
-
 }
