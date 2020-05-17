@@ -3,14 +3,22 @@ package students;
 public class Main {
     public static void main(String[] args) {
         Group group = new Group();
-        Student [] students = new Student [0];
-        students = group.addStudent("Ivanov", students);
-        students = group.addStudent("Sidorov", students);
-        group.print(students);
-        students = group.deleteStudent("Ivanov",students);
-        group.print(students);
-        group.setMarks(group.findStudent("Sidorov", students), 5, 5);
-        group.print(students);
+        group.addStudent("Ivanov");
+        group.addStudent("Sidorov");
+        group.addStudent("Petrov");
+        group.addStudent("Abramov");
+        group.print();
+        System.out.println();
+        group.deleteStudent("Ivanov");
+        group.print();
+        System.out.println();
+        group.setMarks(group.findStudent("Sidorov"), 5, 5);
+        group.setVisits(group.findStudent("Sidorov"), true, 5);
+        group.print();
+        System.out.println();
+        group.sortStudent();
+        group.print();
+
     }
 
 

@@ -1,27 +1,32 @@
 package students;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Group {
+    public Student[] students;
 
-    public static Student [] addStudent(String newStudentsSurname, Student [] oldStudents) {
-        Student[] result = new Student[oldStudents.length + 1];
-        for (int i = 0; i < oldStudents.length; i++) {
-            result[i] = oldStudents[i];
-        }
-        result[oldStudents.length] = new Student(newStudentsSurname);
-        return result;
+    public Group() {
+        students = new Student[0];
     }
 
-    public static void print(Student [] students){
+    public void addStudent(String newStudentsSurname) {
+        Integer studentsCount = students.length;
+        Student[] newStudentsArray = new Student[studentsCount + 1];
+        for (int i = 0; i < studentsCount; i++) {
+            newStudentsArray[i] = students[i];
+        }
+        newStudentsArray[studentsCount] = new Student(newStudentsSurname);
+        students = newStudentsArray;
+    }
+
+    public void print() {
         System.out.println("Surname\tMarks\t\t\t\t\tVisits");
-        for (int i = 0; i <students.length ; i++) {
+        for (int i = 0; i < students.length; i++) {
             System.out.println(students[i].surname + "\t" + Arrays.toString(students[i].marks) + Arrays.toString(students[i].visits));
         }
     }
 
-    public static Student[] deleteStudent(String studentToDelete, Student [] students){
+    public void deleteStudent(String studentToDelete) {
         Student[] result = new Student[students.length - 1];
         Integer k = 0;
         for (Integer i = 0; i < students.length - 1; i++) {
@@ -35,21 +40,38 @@ public class Group {
             result[i] = students[i + k];
         }
         students = result;
-        return students;
     }
 
-    public static void setMarks(Student student, int mark, int lessonNum){
-        student.marks[lessonNum-1] = mark;
+    public void setMarks(Student student, int mark, int lessonNum) {
+        student.marks[lessonNum - 1] = mark;
     }
 
-    public static Student findStudent(String surname,Student [] students){
-        for (int i = 0; i <students.length ; i++) {
+    public void setVisits(Student student, boolean visit, int lessonNum) {
+        student.visits[lessonNum - 1] = visit;
+    }
+
+    public Student findStudent(String surname) {
+        for (int i = 0; i < students.length; i++) {
             if (students[i].surname.equalsIgnoreCase(surname))
                 return students[i];
         }
-            return null;
+        return null;
     }
 
+    public void contains(String surname) {
+        if (findStudent(surname) == null)
+            System.out.println("Student isn't in group");
+        else
+            System.out.println("Student find");
+    }
+
+    public void sortStudent() {
+        Arrays.sort(students, (a, b) -> a.surname.compareTo(b.surname));
+    }
+
+    public void clear() {
+        students = new Student[0];
+    }
 
 
 }

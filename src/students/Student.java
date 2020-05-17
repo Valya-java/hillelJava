@@ -9,7 +9,6 @@ public class Student {
     boolean[] visits;
     int[] marks;
 
-
     public Student(String surname){
         this.surname = surname;
         this.visits = new boolean[NUM_OF_LESSONS];
