@@ -21,7 +21,7 @@ public class Group {
         }
     }
 
-    public static Boolean deleteStudent(String studentToDelete, Student [] students){
+    public static Student[] deleteStudent(String studentToDelete, Student [] students){
         Student[] result = new Student[students.length - 1];
         Integer k = 0;
         for (Integer i = 0; i < students.length - 1; i++) {
@@ -35,7 +35,7 @@ public class Group {
             result[i] = students[i + k];
         }
         students = result;
-        return true;
+        return students;
     }
 
     public static void setMarks(Student student, int mark, int lessonNum){

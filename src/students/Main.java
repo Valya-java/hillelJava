@@ -7,7 +7,7 @@ public class Main {
         students = group.addStudent("Ivanov", students);
         students = group.addStudent("Sidorov", students);
         group.print(students);
-        group.deleteStudent("Ivanov",students);
+        students = group.deleteStudent("Ivanov",students);
         group.print(students);
         group.setMarks(group.findStudent("Sidorov", students), 5, 5);
         group.print(students);
