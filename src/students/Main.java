@@ -12,9 +12,8 @@ public class Main {
         group.deleteStudent("Ivanov");
         group.print();
         System.out.println();
-        Student student = (group.findStudent("Sidorov"));
-        student.setMarks(5,5);
-        student.setVisits(true, 5);
+        group.findStudent("Sidorov").setMarks(5,5);
+        group.findStudent("Sidorov").setVisits(true, 5);
         group.print();
         System.out.println();
         group.sortStudent();
