@@ -21,12 +21,21 @@ public class Container {
         System.out.println(s);
     }
 
-    public int size() {
+    public int getSize() {
         return size;
+    }
+
+    public boolean contains(int toContains) {
+        for (int el : array) {
+            if (el == toContains)
+                return true;
+        }
+        return false;
     }
 
     public void clear() {
         array = new int[0];
+        size = 0;
     }
 
     public int indexOf(int toFind) {
@@ -38,16 +47,24 @@ public class Container {
         return -1;
     }
 
-    public int get(int index) {
-        return array[index];
+    public int[] addAll(int[] arrayToAdd) {
+        for (int a : arrayToAdd)
+            add(a);
+        return array;
     }
 
-    private int[] createCopy(int[] array) {
-        int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i];
+    public boolean equals(int[] array1, int[] array2) {
+        if (array1.length == array2.length) {
+            for (int i = 0; i < array1.length; i++) {
+                if (array1[i] == array2[i])
+                    return true;
+            }
         }
-        return result;
+        return false;
+    }
+
+    public int get(int index) {
+        return array[index];
     }
 
     public void add(int el) {
@@ -65,6 +82,18 @@ public class Container {
 
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public void sort() {
+        for (int i = size - 1; i >= 1; i--) {
+            for (int j = 0; j < i; j++) {
+                if (array[j] > array[j + 1]) {
+                    int tmp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = tmp;
+                }
+            }
+        }
     }
 
 }

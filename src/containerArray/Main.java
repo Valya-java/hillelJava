@@ -1,5 +1,7 @@
 package containerArray;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -7,27 +9,18 @@ public class Main {
         container.print();
         container.add(1);
         container.print();
-        System.out.println(container.size());
+        System.out.println(container.getSize());
         container.add(2);
         container.add(6);
         container.add(2);
         container.add(2);
         container.print();
-        System.out.println(container.size());
-        container.add(2);
-        container.add(2);
+        System.out.println(container.contains(8));
+        container.addAll(new int[]{9, 8, 10});
         container.print();
-        System.out.println(container.get(2));
-        container.clear();
-        System.out.println(container.size());
+        System.out.println(container.equals(new int[]{1, 2, 3}, new int[]{1, 2, 3, 5}));
+        container.sort();
         container.print();
-
-
-
-
-
-
-
 
 
     }
