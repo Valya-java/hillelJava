@@ -8,6 +8,10 @@ public class Container {
     public Container() {
     }
 
+    public Container(int [] array){
+        this.array = addAll(array);
+    }
+
     public void print() {
         String s = "";
         for (int i = 0; i < size; i++) {
@@ -47,9 +51,18 @@ public class Container {
         return -1;
     }
 
-    public void addAll(int[] arrayToAdd) {
-        for (int a : arrayToAdd)
+    public int[] addAll(int[] array) {
+        for (int a : array)
             add(a);
+        return createCopy(array);
+    }
+
+    private int [] createCopy(int[] array){
+        int[] result = new int[array.length];
+        for (int i = 0; i <array.length ; i++) {
+            result[i] = array[i];
+        }
+        return result;
     }
 
     public boolean equals(Container container) {
