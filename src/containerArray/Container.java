@@ -47,18 +47,18 @@ public class Container {
         return -1;
     }
 
-    public int[] addAll(int[] arrayToAdd) {
+    public void addAll(int[] arrayToAdd) {
         for (int a : arrayToAdd)
             add(a);
-        return array;
     }
 
-    public boolean equals(int[] array1, int[] array2) {
-        if (array1.length == array2.length) {
-            for (int i = 0; i < array1.length; i++) {
-                if (array1[i] == array2[i])
-                    return true;
+    public boolean equals(Container container) {
+        if(size == container.getSize()){
+            for (int i = 0; i <size; i++) {
+                if (array[i] != container.get(i))
+                    return false;
             }
+            return true;
         }
         return false;
     }
