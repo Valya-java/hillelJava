@@ -19,7 +19,11 @@ public class Main {
         container.addAll(new int[]{9, 8, 10});
         container.print();
         Container container2 = new Container(new int[] {1, 2, 6, 2, 2, 9, 8, 10});
+        Container container3 = new Container(new int[] {2, 2, 6, 2});
+        Container container4 = new Container(new int[] {2, 2, 6, 2});
         System.out.println(container.equals(container2));
+        System.out.println(container3.equals(container2));
+        System.out.println(container3.equals(container4));
         container.sort();
         container.print();
 

@@ -9,7 +9,8 @@ public class Container {
     }
 
     public Container(int [] array){
-        this.array = addAll(array);
+        this.array = createCopy(array);
+        addAll(this.array);
     }
 
     public void print() {
@@ -51,10 +52,9 @@ public class Container {
         return -1;
     }
 
-    public int[] addAll(int[] array) {
+    public void addAll(int[] array) {
         for (int a : array)
             add(a);
-        return createCopy(array);
     }
 
     private int [] createCopy(int[] array){
