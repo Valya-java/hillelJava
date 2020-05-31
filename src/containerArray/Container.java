@@ -31,11 +31,21 @@ public class Container {
     }
 
     public boolean contains(int toContains) {
-        for (int el : array) {
-            if (el == toContains)
-                return true;
+        int first = 0;
+        int last = getSize()-1;
+        int position = getSize()/2;
+        while ((array[position] != toContains) && (first<=last)){
+            if(array[position] > toContains){
+                last = position-1;
+            }
+            else{
+                first = position + 1;
+            }
+            position = (first + last)/2;
         }
-        return false;
+        if(first<=last) return true;
+        else
+            return false;
     }
 
     public void clear() {

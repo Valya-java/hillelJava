@@ -15,7 +15,6 @@ public class Main {
         container.add(2);
         container.add(2);
         container.print();
-        System.out.println(container.contains(8));
         container.addAll(new int[]{9, 8, 10});
         container.print();
         Container container2 = new Container(new int[] {1, 2, 6, 2, 2, 9, 8, 10});
@@ -26,6 +25,9 @@ public class Main {
         System.out.println(container3.equals(container4));
         container.sort();
         container.print();
+        System.out.println(container.contains(8));
+        System.out.println(container.contains(12));
+        System.out.println(container.contains(2));
 
 
     }
