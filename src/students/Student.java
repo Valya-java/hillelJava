@@ -18,7 +18,19 @@ public class Student {
     public void setVisits(boolean visit, int lessonNum) { visits[lessonNum - 1] = visit;
     }
 
+    @Override
+    public String toString() {
+        return surname;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null|| obj.getClass()!=this.getClass())
+            return false;
+        Student student = (Student) obj;
+        return surname!=null ? surname.equals(student.surname) : student.surname == null;
+    }
 }
 
 
