@@ -67,7 +67,15 @@ public class MyCollection {
 
     }
 
-    public void retainAll(MyCollection collection) {
+    public boolean removeAll(MyCollection collection){
+
+    }
+
+    public boolean containsAll(MyCollection collection){
+
+    }
+
+    public boolean retainAll(MyCollection collection) {
         MyCollection result = new MyCollection();
         for (int i = 0; i <array.length ; i++) {
             for (int j = 0; j <collection.array.length ; j++) {
@@ -76,6 +84,7 @@ public class MyCollection {
             }
         }
         array = result.array;
+        return true;
     }
 
     public void clear(){

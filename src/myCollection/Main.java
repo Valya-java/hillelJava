@@ -17,10 +17,10 @@ public class Main {
         students2.add(new Student("Ovechkin"));
         students.addAll(students2);
         System.out.println(students);
-        System.out.println(students.remove(new Student("c")));
+        System.out.println(students.remove(new Student("Ivanov")));
         System.out.println(students);
         System.out.println(students2);
-        students.retainAll(students2);
+        students.removeAll(students2);
         System.out.println(students);
 
 
