@@ -51,35 +51,56 @@ public class MyCollection {
 
     }
 
-    public boolean remove(Object object){
-        Object[] result = new Object[array.length - 1];
-        int k = 0;
-        for (int i = 0; i < array.length - 1; i++) {
+    public boolean remove(Object object) {
+        if (contains(object)) {
+            Object[] result = new Object[array.length - 1];
+            int k = 0;
+            for (int i = 0; i < array.length - 1; i++) {
 
-            if (array[i].equals(object)) {
-                k = 1;
+                if (array[i].equals(object)) {
+                    k = 1;
+                }
+
+                result[i] = array[i + k];
             }
+            array = result;
+            return true;
 
-            result[i] = array[i + k];
         }
-        array = result;
+        else return false;
+    }
+
+    public boolean removeAll(MyCollection collection){
+        MyCollection result = new MyCollection();
+        result.array = createCopy(array);
+        for (int i = 0; i <array.length ; i++) {
+            for (int j = 0; j <collection.size() ; j++) {
+                if(array[i].equals(collection.get(j)))
+                   result.remove(array[i]);
+            }
+        }
+        array = result.array;
         return true;
 
     }
 
-    public boolean removeAll(MyCollection collection){
-
-    }
-
     public boolean containsAll(MyCollection collection){
-
+        int count = 0;
+        for (int i = 0; i <collection.size() ; i++) {
+            if(contains(collection.get(i)))
+                count++;
+        }
+        if(count == collection.size())
+            return true;
+        return false;
     }
+
 
     public boolean retainAll(MyCollection collection) {
         MyCollection result = new MyCollection();
         for (int i = 0; i <array.length ; i++) {
-            for (int j = 0; j <collection.array.length ; j++) {
-                if(array[i].equals(collection.array[j]))
+            for (int j = 0; j <collection.size() ; j++) {
+                if(array[i].equals(collection.get(j)))
                     result.add(array[i]);
             }
         }
@@ -89,6 +110,10 @@ public class MyCollection {
 
     public void clear(){
         array = new Object[0];
+    }
+
+    public Object get(int index) {
+        return array[index];
     }
 
     @Override

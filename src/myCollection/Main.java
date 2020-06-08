@@ -18,10 +18,12 @@ public class Main {
         students.addAll(students2);
         System.out.println(students);
         System.out.println(students.remove(new Student("Ivanov")));
+        System.out.println(students.remove(new Student("iii")));
         System.out.println(students);
         System.out.println(students2);
-        students.removeAll(students2);
-        System.out.println(students);
+        System.out.println(students.containsAll(students2));
+        students2.add(new Student("Pechkin"));
+        System.out.println(students.containsAll(students2));
 
 
     }
