@@ -3,6 +3,9 @@ package myCollection;
 
 import students.Student;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         MyCollection students = new MyCollection();
@@ -12,7 +15,7 @@ public class Main {
         System.out.println(students);
         System.out.println(students.contains(new Student( "Ivanov")));
         System.out.println(students.contains(new Student( "Dudkin")));
-        MyCollection students2 = new MyCollection();
+        ArrayList students2 = new ArrayList();
         students2.add(new Student("Kukushkin"));
         students2.add(new Student("Ovechkin"));
         students.addAll(students2);
@@ -23,6 +26,7 @@ public class Main {
         System.out.println(students2);
         students.removeAll(students2);
         System.out.println(students);
+        System.out.println(Arrays.toString(students.toArray()));
 
 
 

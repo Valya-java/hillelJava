@@ -1,18 +1,21 @@
 package myCollection;
 
 
-import students.Student;
+import java.util.Collection;
+import java.util.Iterator;
 
 
-public class MyCollection {
+public class MyCollection implements Collection {
 
     private Object[] array = new Object[0];
 
+    @Override
     public int size() {
         return array.length;
     }
 
-    public void add(Object object) {
+    @Override
+    public boolean add(Object object) {
         Object[] newArray = new Object[array.length + 1];
         for (int i = 0; i < array.length; i++) {
             newArray[i] = array[i];
@@ -20,8 +23,10 @@ public class MyCollection {
         newArray[array.length] = object;
         array = newArray;
 
+        return true;
     }
 
+    @Override
     public boolean contains(Object object) {
         for (Object o : array) {
             if (o.equals(object))
@@ -29,6 +34,25 @@ public class MyCollection {
         }
         return false;
 
+    }
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return createCopy(array);
+    }
+
+    @Override
+    public Object[] toArray(Object[] a) {
+        if(a.length < size())
+            return toArray();
+        if (a.length > size())
+            a[size()] = null;
+        return a;
     }
 
     private Object[] createCopy(Object[] array) {
@@ -39,18 +63,21 @@ public class MyCollection {
         return result;
     }
 
+    @Override
     public boolean isEmpty() {
         return array.length == 0;
     }
 
-    public void addAll(MyCollection collection) {
-        for (int i = 0; i < collection.array.length; i++) {
-            add(collection.array[i]);
-
+    @Override
+    public boolean addAll(Collection collection) {
+        Object[] objects = collection.toArray();
+        for (Object object: objects) {
+            add(object);
         }
+        return true;
 
     }
-
+    @Override
     public boolean remove(Object object) {
         if (contains(object)) {
             Object[] result = new Object[array.length - 1];
@@ -69,12 +96,14 @@ public class MyCollection {
         } else return false;
     }
 
-    public boolean removeAll(MyCollection collection) {
+
+    @Override
+    public boolean removeAll(Collection collection) {
         if (containsAll(collection)) {
             MyCollection result = new MyCollection();
             result.array = createCopy(array);
             for (int i = 0; i < collection.size(); i++) {
-                result.remove(collection.get(i));
+                result.remove(collection.toArray()[i]);
             }
             array = result.array;
             return true;
@@ -82,11 +111,11 @@ public class MyCollection {
         return false;
 
     }
-
-    public boolean containsAll(MyCollection collection) {
+    @Override
+    public boolean containsAll(Collection collection) {
         int count = 0;
         for (int i = 0; i < collection.size(); i++) {
-            if (contains(collection.get(i)))
+            if (contains(collection.toArray()[i]))
                 count++;
         }
         if (count == collection.size())
@@ -94,12 +123,12 @@ public class MyCollection {
         return false;
     }
 
-
-    public boolean retainAll(MyCollection collection) {
+    @Override
+    public boolean retainAll(Collection collection) {
         MyCollection result = new MyCollection();
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < collection.size(); j++) {
-                if (array[i].equals(collection.get(j)))
+                if (array[i].equals(collection.toArray()[j]))
                     result.add(array[i]);
             }
         }
@@ -107,6 +136,7 @@ public class MyCollection {
         return true;
     }
 
+    @Override
     public void clear() {
         array = new Object[0];
     }
