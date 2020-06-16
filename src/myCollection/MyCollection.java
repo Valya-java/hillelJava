@@ -38,7 +38,7 @@ public class MyCollection implements Collection {
 
     @Override
     public Iterator iterator() {
-        return null;
+        return new MyIteratorForCollection(array);
     }
 
     @Override
@@ -48,8 +48,9 @@ public class MyCollection implements Collection {
 
     @Override
     public Object[] toArray(Object[] a) {
-        if(a.length < size())
+        if (a.length < size())
             return toArray();
+        System.arraycopy(array, 0, a, 0, size());
         if (a.length > size())
             a[size()] = null;
         return a;
@@ -71,12 +72,13 @@ public class MyCollection implements Collection {
     @Override
     public boolean addAll(Collection collection) {
         Object[] objects = collection.toArray();
-        for (Object object: objects) {
+        for (Object object : objects) {
             add(object);
         }
         return true;
 
     }
+
     @Override
     public boolean remove(Object object) {
         if (contains(object)) {
@@ -99,18 +101,22 @@ public class MyCollection implements Collection {
 
     @Override
     public boolean removeAll(Collection collection) {
-        if (containsAll(collection)) {
-            MyCollection result = new MyCollection();
-            result.array = createCopy(array);
-            for (int i = 0; i < collection.size(); i++) {
+        int count = 0;
+        MyCollection result = new MyCollection();
+        result.array = createCopy(array);
+        for (int i = 0; i < collection.size(); i++) {
+            if (result.contains(collection.toArray()[i])) {
                 result.remove(collection.toArray()[i]);
+                count++;
             }
-            array = result.array;
-            return true;
         }
+        array = result.array;
+        if (count > 0)
+            return true;
         return false;
 
     }
+
     @Override
     public boolean containsAll(Collection collection) {
         int count = 0;
@@ -125,6 +131,8 @@ public class MyCollection implements Collection {
 
     @Override
     public boolean retainAll(Collection collection) {
+        if (containsAll(collection))
+            return false;
         MyCollection result = new MyCollection();
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < collection.size(); j++) {

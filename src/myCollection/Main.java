@@ -26,7 +26,9 @@ public class Main {
         System.out.println(students2);
         students.removeAll(students2);
         System.out.println(students);
-        System.out.println(Arrays.toString(students.toArray()));
+
+
+
 
 
 
