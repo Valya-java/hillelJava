@@ -35,10 +35,10 @@ public class MyLinkedList implements Collection {
         return true;
     }
 
-    public Object pop(){
-    Object result = head.data;
-    head = head.next;
-    return result;
+    public Object pop() {
+        Object result = head.data;
+        head = head.next;
+        return result;
     }
 
     @Override
@@ -128,11 +128,12 @@ public class MyLinkedList implements Collection {
         }
         return false;
     }
+
     @Override
     public boolean addAll(Collection c) {
         Object[] objects = c.toArray();
         for (Object e : objects)
-             add(e);
+            add(e);
         return true;
     }
 
@@ -147,8 +148,8 @@ public class MyLinkedList implements Collection {
         if (containsAll(c))
             return false;
         MyLinkedList result = new MyLinkedList();
-        for (int i = 0; i <c.size() ; i++) {
-            if(contains(c.toArray()[i]))
+        for (int i = 0; i < c.size(); i++) {
+            if (contains(c.toArray()[i]))
                 result.add(c.toArray()[i]);
         }
         head = result.head;
@@ -196,25 +197,5 @@ public class MyLinkedList implements Collection {
 
         return a;
     }
-
-    /*private class Iterator implements java.util.Iterator{
-        private Object data;
-        private Node next;
-        private Node prev;
-
-       // public Iterator(Collection c)
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public Object next() {
-            return null;
-        }
-    }
-    */
-
 }
 
