@@ -79,7 +79,7 @@ public class MyLinkedList implements Collection {
 
     @Override
     public Iterator iterator() {
-        return null;
+        return new Iterator(head);
     }
 
     @Override
@@ -196,6 +196,31 @@ public class MyLinkedList implements Collection {
             a[size] = null;
 
         return a;
+    }
+
+    private class Iterator implements java.util.Iterator{
+
+        private Node current;
+        int index;
+
+
+        public Iterator(Node current) {
+            this.current = current;
+            index = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (index<size());
+        }
+
+        @Override
+        public Object next() {
+            Object result = current.data;
+            index++;
+            current = current.next;
+            return result;
+        }
     }
 }
 
