@@ -3,11 +3,9 @@ package myCollection;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 
-public class MyCollection implements Collection, List {
+public class MyCollection implements Collection {
 
     private Object[] array = new Object[0];
 
@@ -82,11 +80,6 @@ public class MyCollection implements Collection, List {
     }
 
     @Override
-    public boolean addAll(int index, Collection c) {
-        return false;
-    }
-
-    @Override
     public boolean remove(Object object) {
         if (contains(object)) {
             Object[] result = new Object[array.length - 1];
@@ -158,46 +151,6 @@ public class MyCollection implements Collection, List {
 
     public Object get(int index) {
         return array[index];
-    }
-
-    @Override
-    public Object set(int index, Object element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, Object element) {
-
-    }
-
-    @Override
-    public Object remove(int index) {
-        return null;
-    }
-
-    @Override
-    public int indexOf(Object o) {
-        return 0;
-    }
-
-    @Override
-    public int lastIndexOf(Object o) {
-        return 0;
-    }
-
-    @Override
-    public ListIterator listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator listIterator(int index) {
-        return null;
-    }
-
-    @Override
-    public List subList(int fromIndex, int toIndex) {
-        return null;
     }
 
     @Override
