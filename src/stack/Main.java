@@ -22,7 +22,7 @@ public class Main {
         Iterator iterator = list.iterator();
         while (iterator.hasNext()){
             Object o = iterator.next();
-            System.out.println(o.toString());}
+            System.out.println(o);}
 
 
 
