@@ -5,6 +5,8 @@ public class Test implements Collection {
     public static void main(String[] args) {
         Test list = new Test();
         list.add(3);
+        System.out.println(list.size);
+        System.out.println(list);
         list.add(2);
         list.add(1);
         list.add(5);
@@ -12,12 +14,12 @@ public class Test implements Collection {
         list.add(1);
         System.out.println(list.size);
         System.out.println(list);
-        System.out.println(list.remove(1));
-        System.out.println(list.remove(11));
+        list.remove(3);
+
         System.out.println(list);
     }
 
-    private Node first;
+    private Node head;
     private Node last;
     int size = 0;
 
@@ -29,8 +31,8 @@ public class Test implements Collection {
 
         public Node(Object data, Node prev, Node next) {
             this.data = data;
-            this.next = next;
             this.prev = prev;
+            this.next = next;
         }
 
         public void setData(Object data) {
@@ -61,10 +63,13 @@ public class Test implements Collection {
 
     @Override
     public boolean add(Object o) {
-        Node newNode = new Node(o, first, last);
-        first = newNode.getNext();
-        last = new Node(null, newNode, null);
-        newNode.setNext(last);
+        Node l = last;
+        Node newNode = new Node(o, l, null);
+        last = newNode;
+        if (l == null)
+            head = newNode;
+        else
+            l.next = newNode;
         size++;
         return true;
     }
@@ -85,8 +90,8 @@ public class Test implements Collection {
     @Override
     public String toString() {
         String result = "";
-        Node current = first.getNext();
-        while (current != last) {
+        Node current = head;
+        while (current != null) {
             result += current.getData() + ", ";
             current = current.getNext();
         }
@@ -106,12 +111,12 @@ public class Test implements Collection {
 
     @Override
     public boolean isEmpty() {
-        return first == null;
+        return head == null;
     }
 
     @Override
     public boolean contains(Object o) {
-        for (Node x = first; x != null; x = x.next) {
+        for (Node x = head; x != null; x = x.next) {
             if (o.equals(x.data))
                 return true;
         }
@@ -127,21 +132,42 @@ public class Test implements Collection {
     public Object[] toArray() {
         Object[] result = new Object[size];
         int i = 0;
-        for (Node x =first.getNext(); x != last; x = x.next)
+        for (Node x = head.getNext(); x != last; x = x.next)
             result[i++] = x.data;
         return result;
+    }
+
+    public Object removeNode(Node x) {
+        Object result = x.data;
+        Node next = x.next;
+        Node prev = x.prev;
+
+        if (prev == null) {
+            head = next;
+        } else {
+            prev.next = next;
+            x.prev = null;
+        }
+
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+
+        x.data = null;
+        size--;
+        return result;
+
     }
 
 
     @Override
     public boolean remove(Object o) {
-        for (Node x = first; x != last; x = x.next) {
+        for (Node x = head; x != null; x = x.next) {
             if (o.equals(x.data)) {
-                Node first = x.prev;
-                Node last = x.next;
-                last.prev = x.prev;
-                first.next = x.next;
-                size--;
+                removeNode(x);
                 return true;
             }
         }
@@ -159,7 +185,7 @@ public class Test implements Collection {
 
     @Override
     public void clear() {
-        first.next = null;
+        head = null;
     }
 
     @Override

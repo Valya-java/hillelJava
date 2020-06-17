@@ -9,18 +9,16 @@ public class Main {
     public static void main(String[] args) {
         MyLinkedList list = new MyLinkedList();
         MyLinkedList list2 = new MyLinkedList();
-        list.add(3);
-        list.add(1);
-        list.add(2);
+        list2.add(5);
+        list2.add(6);
         System.out.println(list);
-        list.remove(1);
+        System.out.println(list2);
+        System.out.println(list.addAll(list2));
         System.out.println(list);
-        /*System.out.println(list);
-        list2.add(4);
-        list2.add(3);
-        System.out.println(list.retainAll(list2));
+        list.pop();
         System.out.println(list);
-        */
+
+
 
 
 

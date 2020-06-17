@@ -8,10 +8,6 @@ public class MyLinkedList implements Collection {
     private Node last;
     int size = 0;
 
-    public MyLinkedList() {
-        last = new Node(null, head, null);
-        head = new Node(null, null, last);
-    }
 
     private class Node {
         private Object data;
@@ -23,66 +19,35 @@ public class MyLinkedList implements Collection {
             this.next = next;
             this.prev = prev;
         }
-
-        public void setData(Object data) {
-            this.data = data;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
-        }
-
-        public void setPrev(Node prev) {
-            this.prev = prev;
-        }
-
-        public Object getData() {
-            return data;
-        }
-
-        public Node getNext() {
-            return next;
-        }
-
-        public Node getPrev() {
-            return prev;
-        }
     }
 
 
     @Override
     public boolean add(Object o) {
-        Node newNode = last;
-        newNode.setData(o);
-        last = new Node(null, newNode, null);
-        newNode.setNext(last);
+        Node l = last;
+        Node newNode = new Node(o, l, null);
+        last = newNode;
+        if (l == null)
+            head = newNode;
+        else
+            l.next = newNode;
         size++;
         return true;
     }
 
-    //public Object pop(){
-    //if(head == null){
-    //System.out.println("Could not get from empty");
-
-    //}
-    //Object result = head.getData();
-
-    //head = head.getNext();
-
-    //return result;
-
-    // }
+    public Object pop(){
+    Object result = head.data;
+    head = head.next;
+    return result;
+    }
 
     @Override
     public String toString() {
-        if (size == 0) {
-            return "[]";
-        }
         String result = "";
-        Node current = head.getNext();
-        while (current != last) {
-            result += current.getData() + ", ";
-            current = current.getNext();
+        Node current = head;
+        while (current != null) {
+            result += current.data + ", ";
+            current = current.next;
         }
 
         if (!result.isEmpty()) {
@@ -121,39 +86,59 @@ public class MyLinkedList implements Collection {
     public Object[] toArray() {
         Object[] result = new Object[size];
         int i = 0;
-        for (Node x = head.getNext(); x != last; x = x.next)
+        for (Node x = head; x != null; x = x.next)
             result[i++] = x.data;
         return result;
     }
 
 
+    public Object removeNode(Node x) {
+        Object result = x.data;
+        Node next = x.next;
+        Node prev = x.prev;
+
+        if (prev == null) {
+            head = next;
+        } else {
+            prev.next = next;
+            x.prev = null;
+        }
+
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            x.next = null;
+        }
+
+        x.data = null;
+        size--;
+        return result;
+
+    }
+
+
     @Override
     public boolean remove(Object o) {
-        for (Node x = head.getNext(); x != last; x = x.next) {
+        for (Node x = head; x != null; x = x.next) {
             if (o.equals(x.data)) {
-                Node first = x.prev;
-                Node last = x.next;
-                last.prev = x.prev;
-                first.next = x.next;
-                size--;
+                removeNode(x);
                 return true;
             }
         }
         return false;
     }
-
     @Override
     public boolean addAll(Collection c) {
         Object[] objects = c.toArray();
-        for (Object object : objects) {
-            add(object);
-        }
+        for (Object e : objects)
+             add(e);
         return true;
     }
 
     @Override
     public void clear() {
-        head.next = null;
+        head = null;
         size = 0;
     }
 
@@ -161,10 +146,12 @@ public class MyLinkedList implements Collection {
     public boolean retainAll(Collection c) {
         if (containsAll(c))
             return false;
-        for (int i = 0; i < c.size(); i++) {
-            if (!contains(c.toArray()[i]))
-                remove(c.toArray()[i]);
+        MyLinkedList result = new MyLinkedList();
+        for (int i = 0; i <c.size() ; i++) {
+            if(contains(c.toArray()[i]))
+                result.add(c.toArray()[i]);
         }
+        head = result.head;
         return true;
     }
 
@@ -197,7 +184,37 @@ public class MyLinkedList implements Collection {
 
     @Override
     public Object[] toArray(Object[] a) {
-        return new Object[0];
+        if (a.length < size())
+            return toArray();
+        int i = 0;
+        Object[] result = a;
+        for (Node x = head; x != null; x = x.next)
+            result[i++] = x.data;
+
+        if (a.length > size)
+            a[size] = null;
+
+        return a;
     }
+
+    /*private class Iterator implements java.util.Iterator{
+        private Object data;
+        private Node next;
+        private Node prev;
+
+       // public Iterator(Collection c)
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public Object next() {
+            return null;
+        }
+    }
+    */
+
 }
 
