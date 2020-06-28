@@ -145,7 +145,7 @@ public class MyLinkedList implements Collection {
 
     @Override
     public boolean retainAll(Collection c) {
-        if (containsAll(c))
+        if (containsAll(c)&&c.size()==size())
             return false;
         MyLinkedList result = new MyLinkedList();
         for (int i = 0; i < c.size(); i++) {

@@ -1,19 +1,20 @@
 package binaryTree;
 
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Set set = new BinaryTree();
-        System.out.println(set);
-        Set set2 = new BinaryTree();
-        set2.add(8);
-        set2.add(9);
-        set2.add(2);
-        System.out.println(set2);
-        set.addAll(set2);
-        System.out.println(set.size());
-        System.out.println(set);
+        BinaryTree set = new BinaryTree();
+        set.add(8);
+        set.add(3);
+        set.add(4);
+        set.add(9);
+        set.add(1);
+        set.add(10);
+        set.add(6);
+        System.out.println(Arrays.toString(set.toArray()));
+
+
 
 
 
