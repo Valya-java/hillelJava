@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class MyLinkedList implements Collection {
     private Node head;
     private Node last;
-    int size = 0;
+    private int size = 0;
 
 
     private class Node {
@@ -201,7 +201,7 @@ public class MyLinkedList implements Collection {
     private class Iterator implements java.util.Iterator{
 
         private Node current;
-        int index;
+        private int index;
 
 
         public Iterator(Node current) {
