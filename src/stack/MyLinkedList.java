@@ -2,8 +2,10 @@ package stack;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-public class MyLinkedList implements Collection {
+public class MyLinkedList implements Collection, List {
     private Node head;
     private Node last;
     private int size = 0;
@@ -33,12 +35,6 @@ public class MyLinkedList implements Collection {
             l.next = newNode;
         size++;
         return true;
-    }
-
-    public Object pop() {
-        Object result = head.data;
-        head = head.next;
-        return result;
     }
 
     @Override
@@ -138,14 +134,146 @@ public class MyLinkedList implements Collection {
     }
 
     @Override
+    public boolean addAll(int index, Collection c) {
+        Object[] objects = c.toArray();
+        for (Object e : objects){
+            add(index, e);
+            index++;}
+        return true;
+    }
+
+    @Override
     public void clear() {
         head = null;
         size = 0;
     }
 
     @Override
+    public Object get(int index) {
+        if (index <= size && index >= 0){
+            Node result = node(index);
+            return result.data;
+        }
+       else throw new IndexOutOfBoundsException();
+    }
+
+    @Override
+    public Object set(int index, Object element) {
+        if (index <= size && index >= 0) {
+            Node result = node(index);
+            Object o = result.data;
+            result.data = element;
+            return o;
+        }
+        else throw new IndexOutOfBoundsException();
+    }
+
+    Node node(int index) {
+
+        Node x = head;
+        for (int i = 0; i < index; i++)
+            x = x.next;
+        return x;
+
+    }
+
+    @Override
+    public void add(int index, Object element) {
+        if (index <= size && index >= 0) {
+            if (index == size)
+                add(element);
+            if(index == 0){
+                Node newNext = head;
+                Node newNode = new Node(element, null, newNext);
+                head = newNode;
+                size++;
+            }
+            else {
+                Node newPrev = node(index - 1);
+                Node newNext = node(index);
+                Node newNode = new Node(element, newPrev, newNext);
+                newPrev.next = newNode;
+                newNext.prev = newNode;
+                size++;
+
+            }
+        } else throw new IndexOutOfBoundsException();
+
+    }
+
+    @Override
+    public Object remove(int index) {
+        if (index <= size && index >= 0){
+        Node result = node(index);
+        Object o = result.data;
+        removeNode(result);
+        return o;}
+        else throw new IndexOutOfBoundsException();
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        int index = 0;
+        if (o == null) {
+            for (Node x = head; x != null; x = x.next) {
+                if (x.data == null)
+                    return index;
+                index++;
+            }
+        } else {
+            for (Node x = head; x != null; x = x.next) {
+                if (o.equals(x.data))
+                    return index;
+                index++;
+            }
+        }
+
+        return -1;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        int index = size;
+        if (o == null) {
+            for (Node x = last; x != null; x = x.prev) {
+                index--;
+                if (x.data == null)
+                    return index;
+            }
+        } else {
+            for (Node x = last; x != null; x = x.prev) {
+                index--;
+                if (o.equals(x.data))
+                    return index;
+            }
+        }
+
+        return -1;
+
+    }
+
+    @Override
+    public ListIterator listIterator() {
+        return new ListIterator(0);
+    }
+
+    @Override
+    public ListIterator listIterator(int index) {
+        return new ListIterator(index);
+    }
+
+    @Override
+    public List subList(int fromIndex, int toIndex) {
+        MyLinkedList result = new MyLinkedList();
+        for (int i = fromIndex; i <toIndex; i++) {
+            result.add(get(i));
+        }
+        return result;
+    }
+
+    @Override
     public boolean retainAll(Collection c) {
-        if (containsAll(c)&&c.size()==size())
+        if (containsAll(c) && c.size() == size())
             return false;
         MyLinkedList result = new MyLinkedList();
         for (int i = 0; i < c.size(); i++) {
@@ -198,7 +326,7 @@ public class MyLinkedList implements Collection {
         return a;
     }
 
-    private class Iterator implements java.util.Iterator{
+    private class Iterator  implements java.util.Iterator {
 
         private Node current;
         private int index;
@@ -211,7 +339,7 @@ public class MyLinkedList implements Collection {
 
         @Override
         public boolean hasNext() {
-            return (index<size());
+            return (index < size());
         }
 
         @Override
@@ -222,5 +350,96 @@ public class MyLinkedList implements Collection {
             return result;
         }
     }
+
+    private class ListIterator  implements java.util.ListIterator{
+        private Node current;
+        private Node next;
+        private int nextIndex;
+
+
+        public ListIterator(int index) {
+            next = (index == size) ? null : node(index);
+            nextIndex = index;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (nextIndex < size());
+        }
+
+        @Override
+        public Object next() {
+            current = next;
+            next = next.next;
+            nextIndex++;
+            return current.data;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return nextIndex>0;
+        }
+
+        @Override
+        public Object previous() {
+            current = next = (next == null) ? last : next.prev;
+            nextIndex--;
+            return current.data;
+        }
+
+        @Override
+        public int nextIndex() {
+            return nextIndex;
+        }
+
+        @Override
+        public int previousIndex() {
+            return nextIndex-1;
+        }
+
+        @Override
+        public void remove() {
+            Node lastNext = current.next;
+            removeNode(current);
+            if (next == current)
+                next = lastNext;
+            else
+                nextIndex--;
+            current = null;
+
+        }
+
+        @Override
+        public void set(Object o) {
+            current.data = o;
+
+        }
+
+        @Override
+        public void add(Object o) {
+            current = null;
+            if (next == null) {
+                Node l = last;
+                Node newNode = new Node(o, l, null);
+                last = newNode;
+                if (l == null)
+                    head = newNode;
+                else
+                    l.next = newNode;
+                size++;
+            } else {
+                Node newPrev = node(nextIndex - 1);
+                Node newNext = node(nextIndex);
+                Node newNode = new Node(o, newPrev, newNext);
+                newPrev.next = newNode;
+                newNext.prev = newNode;
+                size++;
+
+            }
+            nextIndex++;
+        }
+    }
+
+
 }
 
