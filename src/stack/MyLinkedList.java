@@ -136,9 +136,10 @@ public class MyLinkedList implements Collection, List {
     @Override
     public boolean addAll(int index, Collection c) {
         Object[] objects = c.toArray();
-        for (Object e : objects){
+        for (Object e : objects) {
             add(index, e);
-            index++;}
+            index++;
+        }
         return true;
     }
 
@@ -150,11 +151,10 @@ public class MyLinkedList implements Collection, List {
 
     @Override
     public Object get(int index) {
-        if (index <= size && index >= 0){
+        if (index <= size && index >= 0) {
             Node result = node(index);
             return result.data;
-        }
-       else throw new IndexOutOfBoundsException();
+        } else throw new IndexOutOfBoundsException();
     }
 
     @Override
@@ -164,8 +164,7 @@ public class MyLinkedList implements Collection, List {
             Object o = result.data;
             result.data = element;
             return o;
-        }
-        else throw new IndexOutOfBoundsException();
+        } else throw new IndexOutOfBoundsException();
     }
 
     Node node(int index) {
@@ -182,13 +181,12 @@ public class MyLinkedList implements Collection, List {
         if (index <= size && index >= 0) {
             if (index == size)
                 add(element);
-            if(index == 0){
+            if (index == 0) {
                 Node newNext = head;
                 Node newNode = new Node(element, null, newNext);
                 head = newNode;
                 size++;
-            }
-            else {
+            } else {
                 Node newPrev = node(index - 1);
                 Node newNext = node(index);
                 Node newNode = new Node(element, newPrev, newNext);
@@ -203,12 +201,12 @@ public class MyLinkedList implements Collection, List {
 
     @Override
     public Object remove(int index) {
-        if (index <= size && index >= 0){
-        Node result = node(index);
-        Object o = result.data;
-        removeNode(result);
-        return o;}
-        else throw new IndexOutOfBoundsException();
+        if (index <= size && index >= 0) {
+            Node result = node(index);
+            Object o = result.data;
+            removeNode(result);
+            return o;
+        } else throw new IndexOutOfBoundsException();
     }
 
     @Override
@@ -265,7 +263,7 @@ public class MyLinkedList implements Collection, List {
     @Override
     public List subList(int fromIndex, int toIndex) {
         MyLinkedList result = new MyLinkedList();
-        for (int i = fromIndex; i <toIndex; i++) {
+        for (int i = fromIndex; i < toIndex; i++) {
             result.add(get(i));
         }
         return result;
@@ -326,7 +324,7 @@ public class MyLinkedList implements Collection, List {
         return a;
     }
 
-    private class Iterator  implements java.util.Iterator {
+    private class Iterator implements java.util.Iterator {
 
         private Node current;
         private int index;
@@ -351,7 +349,7 @@ public class MyLinkedList implements Collection, List {
         }
     }
 
-    private class ListIterator  implements java.util.ListIterator{
+    private class ListIterator implements java.util.ListIterator {
         private Node current;
         private Node next;
         private int nextIndex;
@@ -377,7 +375,7 @@ public class MyLinkedList implements Collection, List {
 
         @Override
         public boolean hasPrevious() {
-            return nextIndex>0;
+            return nextIndex > 0;
         }
 
         @Override
@@ -394,7 +392,7 @@ public class MyLinkedList implements Collection, List {
 
         @Override
         public int previousIndex() {
-            return nextIndex-1;
+            return nextIndex - 1;
         }
 
         @Override
