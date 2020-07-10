@@ -1,11 +1,15 @@
 package homeWork;
 
+
+
 import java.util.Scanner;
 
 public class homeWork2 {
 
 
     public static void main(String[] args) {
+
+
 
         averageN();
     }
@@ -37,6 +41,7 @@ public class homeWork2 {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please input deposit amount");
         float num1 = scanner.nextFloat();
+        System.out.println("Please input deposit years");
     }
 
 
