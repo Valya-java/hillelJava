@@ -28,9 +28,7 @@ public class Dictionary implements Map {
                 size++;
                 return null;
             }
-
         }
-
     }
 
     @Override
@@ -61,17 +59,19 @@ public class Dictionary implements Map {
 
     @Override
     public boolean containsKey(Object key) {
-        for(Entry e: data){
-            if(e!=null&&e.key.equals(key))
-        return true;}
+        for (Entry e : data) {
+            if (e != null && e.key.equals(key))
+                return true;
+        }
         return false;
     }
 
     @Override
     public boolean containsValue(Object value) {
-        for(Entry e: data){
-            if(e!=null&&e.value.equals(value))
-                return true;}
+        for (Entry e : data) {
+            if (e != null && e.value.equals(value))
+                return true;
+        }
         return false;
     }
 
@@ -80,7 +80,7 @@ public class Dictionary implements Map {
     public Object remove(Object key) {
         Object result;
 
-        if(containsKey(key)) {
+        if (containsKey(key)) {
             for (Entry e : data) {
                 if (e != null && e.key.equals(key)) {
                     result = e.value;
@@ -96,13 +96,12 @@ public class Dictionary implements Map {
     @Override
     public void putAll(Map m) {
         Iterator<Map.Entry> iterator = m.entrySet().iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry pair = iterator.next();
-            put(pair.getKey(),pair.getValue());
+            put(pair.getKey(), pair.getValue());
 
         }
-        }
-
+    }
 
 
     @Override
@@ -126,7 +125,6 @@ public class Dictionary implements Map {
             }
         }
         return result;
-
     }
 
     @Override
@@ -152,7 +150,7 @@ public class Dictionary implements Map {
     }
 
 
-    private static class Entry implements Map.Entry{
+    private static class Entry implements Map.Entry {
         Entry next;
         Object key;
         Object value;
@@ -180,7 +178,4 @@ public class Dictionary implements Map {
             return oldValue;
         }
     }
-
-
-
 }
